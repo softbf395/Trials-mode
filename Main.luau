@@ -10,7 +10,7 @@ function setup(name, asset, E, Speed, delay, Reverse, Reboundsm, ReboundsX, Rebo
 
 local entity = spawner.Create({
 	Entity = {
-		Name = "Template Entity",
+		Name = name,
 		Asset = asset,
 		HeightOffset = 0
 	},
