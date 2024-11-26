@@ -72,7 +72,7 @@ local doorNumV:IntValue=game.ReplicatedStorage.GameData.LatestRoom
 doorNumV.Changed:Connect(function()
 	if math.random(1,40) <=20 then
 		if math.random(1, TIMEChance.inAChance) <=TIMEChance.number then
-                        local time=setup("Time", "https://github.com/softbf395/DoorsTheTialsModeAssets/blob/main/entitymodels/TIME.rbxm",  true, 0, false, 3, 6, 2, true, 100, 40, true, true, true, "Guiding", {"You Died To Time.", "He Rebounds, so try hiding and stopping!", "Use what you learned from ambush!"}, function() end)
+                        local time=setup("Time", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/TIME.rbxm",  true, 0, false, 3, 6, 2, true, 100, 40, true, true, true, "Guiding", {"You Died To Time.", "He Rebounds, so try hiding and stopping!", "Use what you learned from ambush!"}, function() end)
 			time:Run()
 		end
 	end
