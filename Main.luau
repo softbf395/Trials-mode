@@ -1,6 +1,29 @@
 --[[
 	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
+local test=false
+if game.ReplicatedStorage:FindFirstChild("Test") then
+test = true
+end
+local StarterGui=game:GetService("StarterGui")
+if not game:FindFirstChild("TrialsModeRan", true) then
+Instance.new("BoolValue", game.ReplicatedStorage).Name="TrialsModeRan"
+ function displayMessages()
+    -- Green Text Message
+    StarterGui:SetCore("ChatMakeSystemMessage", {
+        Text = "<font color='#00FF00'>Loaded Aedaniss7’s The Trials Mode for doors!<br/>If you encounter any bugs, report it to Aedaniss7’s hub on scriptblox!<br/>Version: 0.0.2</font>";
+        Font = Enum.Font.SourceSansBold;
+        TextSize = 18;
+    })
+
+    -- Red Text Message
+    StarterGui:SetCore("ChatMakeSystemMessage", {
+        Text = "<font color='#FF0000'>Good luck! You’ll need it.. ;)</font>";
+        Font = Enum.Font.SourceSansBold;
+        TextSize = 18;
+    })
+end
+displayMessages()
 workspace.Ambience_Dark.SoundId="rbxassetid://3466798390"
 --===setup entities===--
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
@@ -68,6 +91,9 @@ function makeEntity(ent)
 end
 
 local TIMEChance={number=10, inAChance=100}
+if test==true then
+TIMEChance={number=100, inAChance=100}
+end
 local doorNumV:IntValue=game.ReplicatedStorage.GameData.LatestRoom
 doorNumV.Changed:Connect(function()
 	if math.random(1,40) <=20 then
@@ -77,3 +103,21 @@ doorNumV.Changed:Connect(function()
 		end
 	end
 end)
+else
+function displayMessages()
+    -- Green Text Message
+    StarterGui:SetCore("ChatMakeSystemMessage", {
+        Text = "<font color='#00FF00'>Already Ran: Aedaniss7’s The Trials Mode for doors!<br/>If you encounter any bugs, report it to Aedaniss7’s hub on scriptblox!<br/>Version: 0.0.2</font>";
+        Font = Enum.Font.SourceSansBold;
+        TextSize = 18;
+    })
+
+    -- Red Text Message
+    StarterGui:SetCore("ChatMakeSystemMessage", {
+        Text = "<font color='#FF0000'>Good luck! You’ll need it.. ;)</font>";
+        Font = Enum.Font.SourceSansBold;
+        TextSize = 18;
+    })
+end
+displayMessages()
+end
