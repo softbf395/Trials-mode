@@ -90,15 +90,19 @@ function makeEntity(ent)
    ent:Run()
 end
 
-local TIMEChance={number=10, inAChance=100, roomMin=5}
+local TIMEChance={number=20, inAChance=100, roomMin=5}
+local SPEEDChance={number=15, inAChance=100, roomMin=6}
 if test==true then
-TIMEChance={number=100, inAChance=100, roomMin=0}
+SPEEDChance={number=100, inAChance=100, roomMin=0}
 end
 local doorNumV:IntValue=game.ReplicatedStorage.GameData.LatestRoom
 doorNumV.Changed:Connect(function()
 	if math.random(1,40) <=20 then
 		if math.random(1, TIMEChance.inAChance) <=TIMEChance.number and doorNumV.Value>=TIMEChance.roomMin then
-                        local time=setup("Time", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/TIME.rbxm",  true, 1.1, 0, false, 3, 6, 2, true, 100, 40, true, true, true, "Guiding", {"You Died To Time.", "He Rebounds, so try hiding and stopping!", "Use what you learned from ambush!"}, function() end)
+                        local time=setup("Time", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/TIME.rbxm",  true, 1.1, 0, false, 3, 6, 2, true, 100, 40, true, false, true, "Guiding", {"You Died To Time.", "He Rebounds, so try hiding and stopping!", "its very confusing. i know.", "Use what you learned from ambush!"}, function() end)
+			time:Run()
+                elseif math.random(1, TIMEChance.inAChance) <=TIMEChance.number and doorNumV.Value>=TIMEChance.roomMin then
+                        local time=setup("Speed", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/speed.rbxm",  true, 2, 2, false, 8, 8, 4, true, 300, 40, false, false, true, "Curious", {"Hmm, who did you die to this time?", "oh, the reddish-orange one.", "I call it speed.", "Its actual name is C-9.", "How it ended up here. its unknown, the most reasonable explanation is that it somehow exited The Dimension that is Lost In Time..", "hurry up, we're not done yet!"}, function() end)
 			time:Run()
 		end
 	end
