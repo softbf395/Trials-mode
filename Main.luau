@@ -10,6 +10,30 @@ end
     NOTE: Custom shop items will NOT cost any real knobs
 
 ]]--
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+---====== Display achievement ======---
+function ach(name,desc,reason,img)
+local img2=img
+if img:find("rbxassetid://") then
+else
+   local path="achievements/"..name.."/icon.png"
+    if not isfile(path) then
+    writefile(path, game:HttpGet(img))
+    print("Added "..path.."!")
+    else
+    appendfile(path, game:HttpGet(img))
+    print("if the file had an update the achievement icon for "..name.." should have been changed, file path:" ..path)
+    end
+   img2 =  getcustomasset(path)
+end
+achievementGiver({
+    Title = name,
+    Desc = desc,
+    Reason = reason,
+    Image = img2
+})
+end
 
 local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
 local CustomShop = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Shop%20Items/Source.lua"))()
@@ -50,7 +74,7 @@ workspace.Ambience_Dark.SoundId="rbxassetid://3466798390"
 --===setup entities===--
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
 
-function setup(name, asset, E, Speed, delay, Reverse, Reboundsm, ReboundsX, ReboundDelay, Rebounds, Damage, DmgRange, CrossBreak, CrossResist, CrossEnabled,DeathType, DeathMessages, Jumpscare)
+function setup(name, asset, E, Speed, delay, Reverse, Reboundsm, ReboundsX, ReboundDelay, Rebounds, Damage, DmgRange, CrossBreak, CrossResist, CrossEnabled,DeathType, DeathMessages, Jumpscare, achName, achDesc, achR, achImg)
    ---====== Create entity ======---
 
 local entity = spawner.Create({
@@ -104,6 +128,9 @@ local entity = spawner.Create({
 		Cause = ""
 	}
 })
+entity:SetCallback("OnDespawning", function()
+    ach(achName, achDesc, achR, achImg)
+end)
 return entity
 end
 
@@ -117,14 +144,17 @@ local SPEEDChance={number=15, inAChance=100, roomMin=6}
 if test==true then
 SPEEDChance={number=100, inAChance=100, roomMin=0}
 end
+function getimglink(imgname)
+    return "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/images/"..imgname
+end
 local doorNumV:IntValue=game.ReplicatedStorage.GameData.LatestRoom
 doorNumV.Changed:Connect(function()
 	if math.random(1,40) <=20 then
 		if math.random(1, TIMEChance.inAChance) <=TIMEChance.number and doorNumV.Value>=TIMEChance.roomMin then
-                        local time=setup("Time", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/TIME.rbxm",  true, 1.1, 0, false, 3, 6, 2, true, 100, 40, true, false, true, "Guiding", {"You Died To Time.", "He Rebounds, so try hiding and stopping!", "its very confusing. i know.", "Use what you learned from ambush!"}, function() end)
+                        local time=setup("Time", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/TIME.rbxm",  true, 1.1, 0, false, 3, 6, 2, true, 100, 40, true, false, true, "Guiding", {"You Died To Time.", "He Rebounds, so try hiding and stopping!", "its very confusing. i know.", "Use what you learned from ambush!"}, function() end, "TIME IS CONTINUED.", "We're not TOO LATE!", "Survive Time", getimglink("TimeSurvive.png"))
 			time:Run()
                 elseif math.random(1, TIMEChance.inAChance) <=TIMEChance.number and doorNumV.Value>=TIMEChance.roomMin then
-                        local time=setup("Speed", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/speed.rbxm",  true, 2, 2, false, 8, 8, 4, true, 300, 40, false, false, true, "Curious", {"Hmm, who did you die to this time?", "oh, the reddish-orange one.", "I call it speed.", "Its actual name is C-9.", "How it ended up here. its unknown, the most reasonable explanation is that it somehow exited The Dimension that is Lost In Time..", "hurry up, we're not done yet!"}, function() end)
+                        local time=setup("Speed", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/speed.rbxm",  true, 2, 2, false, 8, 8, 4, true, 300, 40, false, false, true, "Curious", {"Hmm, who did you die to this time?", "oh, the reddish-orange one.", "I call it speed.", "Its actual name is C-9.", "How it ended up here. its unknown, the most reasonable explanation is that it somehow exited The Dimension that is Lost In Time..", "hurry up, we're not done yet!"}, function() end, "SLOW.", "We're TOO FAST!", "Survive Speed", getimglink("TimeSurvive.png"))
 			time:Run()
 		end
 	end
