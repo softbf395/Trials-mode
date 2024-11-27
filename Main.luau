@@ -5,6 +5,28 @@ local test=false
 if game.ReplicatedStorage:FindFirstChild("Test") then
 test = true
 end
+--[[
+
+    NOTE: Custom shop items will NOT cost any real knobs
+
+]]--
+
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))()
+local CustomShop = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Shop%20Items/Source.lua"))()
+
+
+-- Create your tool here
+local Lantern = LoadCustomInstance("https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/Lantern.rbxm")
+
+
+-- Create custom shop item
+CustomShop.CreateItem(Lantern, {
+    Title = "Lantern",
+    Desc = "Light up those annoying dark rooms!",
+    Image = "rbxassetid://18249762827",
+    Price = 0,
+    Stack = 1,
+})
 local StarterGui=game:GetService("StarterGui")
 if not game:FindFirstChild("TrialsModeRan", true) then
 Instance.new("BoolValue", game.ReplicatedStorage).Name="TrialsModeRan"
