@@ -5,6 +5,76 @@ local test=false
 if game.ReplicatedStorage:FindFirstChild("Test") then
 test = true
 end
+function spawnItem(itemName)
+    ---====== Define spawner ======---
+
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Item%20Spawner/V1/Source.lua"))();
+
+---====== Create item ======---
+
+local tools = {
+		Crucifix=LoadCustomInstance("https://github.com/RegularVynixu/Utilities/raw/main/Doors/Item%20Spawner/Assets/Crucifix.rbxm");
+		Lantern=LoadCustomInstance("https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/Lantern.rbxm");
+	}
+local handle = tools[itemName].Handle
+local size = handle.Size
+
+local offsets = {
+    flat_random = CFrame.Angles(math.rad(-90), 0, math.rad(math.random(-360, 360))) + Vector3.new(0, 0, size.Z / 2),
+    doorframe = CFrame.Angles(math.rad(-5), 0, 0) + Vector3.new(0, size.Y / 2, 0),
+    wall = CFrame.new(0, 0, -size.Z / 2)
+}
+
+local item = spawner.Create({
+    Item = {
+        Name = itemName,
+        Asset = tools[itemName],
+        DestroyOnPickup = true,
+        PickupOnTouch = false
+    },
+    Prompt = {
+        Range = 7,
+        Duration = 0,
+        LineOfSight = false
+    },
+    Locations = {
+        Dresser = {
+            Enabled = false
+        },
+        Drawer = {
+            Enabled = true, Offset = offsets.flat_random
+        },
+        Table = {
+            Enabled = true, Offset = offsets.flat_random
+        },
+        Chest = {
+            Enabled = true, Offset = offsets.flat_random
+        },
+        Bed = {
+            Enabled = false
+        },
+        Floor = {
+            Enabled = false
+        },
+        Fireplace = {
+            Enabled = false
+        },
+        Doorframe = {
+            Enabled = true, Offset = offsets.doorframe
+        },
+        Wall = {
+            Enabled = true, Offset = offsets.wall
+        }
+    }
+})
+
+---====== Spawn item ======---
+
+local currentRoomIndex = game:GetService("Players").LocalPlayer:GetAttribute("CurrentRoom") -- current room number index
+local currentRoom = workspace.CurrentRooms[currentRoomIndex] -- current room instance
+
+item:Spawn(currentRoom)
+end
 --[[
 
     NOTE: Custom shop items will NOT cost any real knobs
@@ -138,9 +208,11 @@ end
 function makeEntity(ent)
    ent:Run()
 end
-
+local crucifixchance=10
+local lanternchance=50
 local TIMEChance={number=20, inAChance=100, roomMin=5}
 local SPEEDChance={number=15, inAChance=100, roomMin=6}
+
 if test==true then
 SPEEDChance={number=100, inAChance=100, roomMin=0}
 end
@@ -150,6 +222,14 @@ end
 local doorNumV:IntValue=game.ReplicatedStorage.GameData.LatestRoom
 doorNumV.Changed:Connect(function()
 	if math.random(1,40) <=20 then
+				local isCrucifix=false
+				if math.random(1,100)<=crucifixchance then
+					isCrucifix=true
+					spawnItem("Crucifix")
+				end
+				if not isCrucifix and math.random(1,100)<=lanternchance then
+					spawnItem("Lantern")
+				end
 		if math.random(1, TIMEChance.inAChance) <=TIMEChance.number and doorNumV.Value>=TIMEChance.roomMin then
                         local time=setup("Time", "https://raw.githubusercontent.com/softbf395/DoorsTheTialsModeAssets/refs/heads/main/entitymodels/TIME.rbxm",  true, 1.1, 0, false, 3, 6, 2, true, 100, 40, true, false, true, "Guiding", {"You Died To Time.", "He Rebounds, so try hiding and stopping!", "its very confusing. i know.", "Use what you learned from ambush!"}, function() end, "TIME IS CONTINUED.", "We're not TOO LATE!", "Survive Time", getimglink("TimeSurvive.png"))
 			time:Run()
