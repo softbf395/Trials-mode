@@ -70,6 +70,7 @@ Instance.new("BoolValue", game.ReplicatedStorage).Name="TrialsModeRan"
     })
 end
 displayMessages()
+ach("Trials mode enabled!", "Good luck, You'll need it ;)", "Activate The Trials Mode.", "https://static.wikia.nocookie.net/doors-game/images/9/90/Welcome_Badge.png/revision/latest?cb=20220810040126")
 workspace.Ambience_Dark.SoundId="rbxassetid://3466798390"
 --===setup entities===--
 local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
@@ -180,4 +181,5 @@ function displayMessages()
     })
 end
 displayMessages()
+ach("Trials mode failed!!", "Its active already!", "Activate The Trials Mode again.", "https://static.wikia.nocookie.net/doors-game/images/5/51/QA_Tester_Badge.png/revision/latest?cb=20230211003716")
 end
