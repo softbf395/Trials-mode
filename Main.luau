@@ -1,6 +1,3 @@
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
 local test=false
 if game.ReplicatedStorage:FindFirstChild("Test") then
 test = true
